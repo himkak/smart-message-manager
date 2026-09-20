@@ -1,0 +1,18 @@
+Metadata-Version: 2.4
+Name: smart-messages-manager
+Version: 0.1.0
+Summary: A privacy-conscious personal communications search application.
+Requires-Python: >=3.12
+Requires-Dist: aiohttp<4.0,>=3.9
+Requires-Dist: aiosqlite<1.0,>=0.20
+Requires-Dist: azure-search-documents<12.0,>=11.5
+Requires-Dist: fastapi<1.0,>=0.115
+Requires-Dist: httpx<1.0,>=0.27
+Requires-Dist: itsdangerous<3.0,>=2.2
+Requires-Dist: openai<2.0,>=1.40
+Requires-Dist: pydantic-settings<3.0,>=2.6
+Requires-Dist: uvicorn[standard]<1.0,>=0.30
+Provides-Extra: dev
+Requires-Dist: pytest<9.0,>=8.3; extra == "dev"
+Requires-Dist: pytest-asyncio<1.0,>=0.24; extra == "dev"
+Requires-Dist: ruff<1.0,>=0.8; extra == "dev"
