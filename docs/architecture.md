@@ -14,6 +14,14 @@ UI -> FastAPI API -> RAG service -> retrieval port -> cited, evidence-only answe
 
 The RAG service receives canonical messages from the retrieval port; it never calls Gmail directly. The LLM receives only selected retrieved context, never the whole mailbox. Message content is never persisted locally — Gmail sync embeds and uploads each newly synced message straight to Azure AI Search, which is the sole durable store of message content. SQLite is used only for small sync bookkeeping: the Gmail history cursor (`sync_state`) and the last-indexed content hash per message (`search_index_state`, so unchanged content is not re-embedded).
 
+### Gmail sync flow
+
+![Gmail sync flow: POST /api/sync/gmail reads the last saved history cursor from SQLite, calls Gmail history.list, normalizes and embeds each new message via text-embedding-3-small, indexes it into Azure AI Search, and updates the sync cursor in SQLite.](SMM-SyncGmail.jpg)
+
+### Chat (RAG) flow
+
+![Chat flow: a question hits /api/chat, RagService asks SearchService to embed the query and run a hybrid search against Azure AI Search, then AzureChatClient sends the retrieved evidence as a prompt to the gpt-4.1-mini deployment and returns a cited answer.](SMM-ChatFlow.jpg)
+
 ## Boundaries
 
 | Boundary | Responsibility | V1 implementation status |
